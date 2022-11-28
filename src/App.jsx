@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { MapContainer, TileLayer, Popup, Circle } from "react-leaflet";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut, Pie } from "react-chartjs-2";
+import { Doughnut, Pie, PolarArea } from "react-chartjs-2";
 import PieChart from "./components/map";
 import { UserData } from "./Data";
 import icon from "./assets/icon.png";
@@ -12,6 +12,8 @@ import "./App.css";
 function App() {
   const center = [51.505, -0.09];
   const firstPosition = [51.5, -0.06];
+  const secondPosition = [51.49508901692658, -0.08337167702239126];
+  const thirdPosition = [51.499417177413534, -0.10418561890014542];
   const lastPosition = [51.50219553301563, -0.09834913208596228];
   const marker = [51.49, -0.08];
   const fillBlueOptions = { fillColor: "" };
@@ -99,6 +101,61 @@ function App() {
       },
     ],
   });
+  const [usersData, setUsersData] = useState({
+    labels: UserData.map((data) => data.year),
+    datasets: [
+      {
+        label: "Users Gained",
+        data: UserData.map((data) => data.userGain),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderWidth: 2,
+      },
+      {
+        label: "Users Gained",
+        data: UserData.map((data) => data.userGain),
+        backgroundColor: [
+          "#ea5545",
+          "#ede15b",
+          "#bdcf32",
+          "#87bc45",
+          "#27aeef",
+          "#b33dc6",
+        ],
+        borderWidth: 2,
+      },
+      {
+        label: "Users Gained",
+        data: UserData.map((data) => data.userGain),
+        backgroundColor: [
+          "#bd7ebe",
+          "#ffb55a",
+          "#ffee65",
+          "#beb9db",
+          "#fdcce5",
+          "#8bd3c7",
+        ],
+        borderWidth: 2,
+      },
+      {
+        label: "Users Gained",
+        data: UserData.map((data) => data.userGain),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderWidth: 2,
+      },
+    ],
+  });
 
   return (
     <MapContainer
@@ -135,6 +192,18 @@ function App() {
       <Circle center={firstPosition} pathOptions={fillRedOptions} radius={200}>
         <Popup className="popup">
           <Doughnut className="pie" data={newData} />
+        </Popup>
+      </Circle>
+
+      <Circle center={thirdPosition} pathOptions={fillRedOptions} radius={200}>
+        <Popup className="popup">
+          <PolarArea className="pie" data={newData} />
+        </Popup>
+      </Circle>
+
+      <Circle center={secondPosition} pathOptions={fillRedOptions} radius={200}>
+        <Popup className="popup">
+          <Pie className="pie" data={usersData} />
         </Popup>
       </Circle>
 
